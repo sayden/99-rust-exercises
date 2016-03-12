@@ -77,3 +77,56 @@ pub fn my_flatten<T: PartialEq>(b: Vec<NestedList<T>>, acc: &mut Vec<T>) {
 }
 
 // 8 Eliminate consecutive duplicates of list elements.
+fn compress(vec: &[u32], acc: &mut Vec<u32>) {
+    match vec {
+        [x] => acc.push(x),
+
+        [x, xs..] => {
+            acc.push(x);
+            let rest = xs
+                        .iter()
+                        .skip_while(|y| x == **y)
+                        .collect::<Vec<&u32>>();
+            let mut new_list: Vec<u32> = Vec::new();
+            for i in rest {
+                new_list.push(*i);
+            }
+            
+            compress(new_list.as_slice(), acc);
+        },
+
+        _ => return,
+    }
+}
+
+
+fn group(vec: &[u32], acc: &mut Vec<Vec<u32>>) {
+    match vec {
+        [x, xs..] => {
+            let first = xs
+                .iter()
+                .take_while(|y| **y == x)
+                .collect::<Vec<&u32>>();
+                
+            let mut first_list: Vec<u32> = Vec::new();
+            first_list.push(x);
+            for i in first {
+                first_list.push(*i);
+            }
+            acc.push(first_list);
+            
+            //First group, now we must group second part
+            let second = xs
+                .iter()
+                .skip_while(|y| **y == x)
+                .collect::<Vec<&u32>>();
+            let mut second_list: Vec<u32> = Vec::new();
+            for i in second {
+                second_list.push(*i);
+            }
+            
+            group(second_list.as_slice(), acc);
+        }
+        _ => return,
+    }
+}
