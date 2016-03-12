@@ -100,7 +100,7 @@ fn compress(vec: &[u32], acc: &mut Vec<u32>) {
 }
 
 
-fn group(vec: &[u32], acc: &mut Vec<Vec<u32>>) {
+fn pack(vec: &[u32], acc: &mut Vec<Vec<u32>>) {
     match vec {
         [x, xs..] => {
             let first = xs
@@ -125,7 +125,7 @@ fn group(vec: &[u32], acc: &mut Vec<Vec<u32>>) {
                 second_list.push(*i);
             }
             
-            group(second_list.as_slice(), acc);
+            pack(second_list.as_slice(), acc);
         }
         _ => return,
     }
