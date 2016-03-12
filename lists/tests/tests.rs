@@ -43,10 +43,11 @@ fn test_palindrome() {
 #[test]
 fn test_flatten() {
     // 7 Flatten a nested list structure.
-    let mut acc: Vec<u32> = Vec::new();
-    lists::my_flatten(vec![lists::NestedList::Elem(1)], &mut acc);
-    assert_eq!(acc, vec![1]);
-    acc = Vec::new();
+    let mut acc1: Vec<u32> = Vec::new();
+    lists::my_flatten(vec![lists::NestedList::Elem(1)], &mut acc1);
+    assert_eq!(acc1, vec![1]);
+
+    acc1 = Vec::new();
     lists::my_flatten(vec![lists::NestedList::List(vec![
                     lists::NestedList::Elem(1),
                     lists::NestedList::Elem(2),
@@ -57,6 +58,28 @@ fn test_flatten() {
                 ]),
                            lists::NestedList::List(vec![lists::NestedList::Elem(5)]),
                            lists::NestedList::Elem(6)],
-                      &mut acc);
-    assert_eq!(acc, vec![1, 2, 3, 4, 5, 6]);
+                      &mut acc1);
+    assert_eq!(acc1, vec![1, 2, 3, 4, 5, 6]);
+
+    let mut acc2: Vec<char> = Vec::new();
+    lists::my_flatten(vec![lists::NestedList::List(vec![
+                    lists::NestedList::Elem('a'),
+                    lists::NestedList::Elem('b'),
+                    lists::NestedList::Elem('c'),
+                    lists::NestedList::List(
+                        vec![lists::NestedList::Elem('d')]
+                    )
+                ]),
+                           lists::NestedList::List(vec![lists::NestedList::Elem('e')]),
+                           lists::NestedList::Elem('f')],
+                      &mut acc2);
+    assert_eq!(acc2, vec!['a', 'b', 'c', 'd', 'e', 'f']);
+}
+
+#[test]
+fn test_compress() {
+    // 8 Eliminate consecutive duplicates of list elements.
+    // let res = lists::compress(vec![1, 1, 2, 2, 2, 3, 4]);
+    // assert_eq!(res, vec![1, 2, 3, 4]);
+
 }

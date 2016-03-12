@@ -62,12 +62,12 @@ pub fn is_palindrome<T: PartialEq>(vec: Vec<T>) -> bool {
 }
 
 // 7 Flatten a nested list structure.
-pub enum NestedList {
-    Elem(u32),
-    List(Vec<NestedList>),
+pub enum NestedList<T: PartialEq> {
+    Elem(T),
+    List(Vec<NestedList<T>>),
 }
 
-pub fn my_flatten(b: Vec<NestedList>, acc: &mut Vec<u32>) {
+pub fn my_flatten<T: PartialEq>(b: Vec<NestedList<T>>, acc: &mut Vec<T>) {
     for i in b.into_iter() {
         match i {
             NestedList::Elem(e) => acc.push(e),
@@ -75,3 +75,5 @@ pub fn my_flatten(b: Vec<NestedList>, acc: &mut Vec<u32>) {
         }
     }
 }
+
+// 8 Eliminate consecutive duplicates of list elements.
