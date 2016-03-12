@@ -2,6 +2,3 @@
 name = "99-rust-exercises"
 version = "0.1.0"
 authors = ["Mario Castro <mariocaster@gmail.com>"]
-
-[dependencies]
-"ninety_nine_library" = { path = "ninety_nine_library" }
