@@ -1,3 +1,5 @@
+#![feature(slice_patterns)]
+
 // 1 Find the last element of a list.
 pub fn my_last<T: Clone>(vec: Vec<T>) -> T {
     let mut reversed = vec;
@@ -77,56 +79,61 @@ pub fn my_flatten<T: PartialEq>(b: Vec<NestedList<T>>, acc: &mut Vec<T>) {
 }
 
 // 8 Eliminate consecutive duplicates of list elements.
-fn compress(vec: &[u32], acc: &mut Vec<u32>) {
-    match vec {
+pub fn compress(vec: Vec<u32>, acc: &mut Vec<u32>) {
+    match vec.as_slice() {
         [x] => acc.push(x),
 
         [x, xs..] => {
             acc.push(x);
-            let rest = xs
-                        .iter()
-                        .skip_while(|y| x == **y)
-                        .collect::<Vec<&u32>>();
+            let rest = xs.iter()
+                         .skip_while(|y| x == **y)
+                         .collect::<Vec<&u32>>();
             let mut new_list: Vec<u32> = Vec::new();
             for i in rest {
                 new_list.push(*i);
             }
-            
-            compress(new_list.as_slice(), acc);
-        },
+
+            compress(new_list, acc);
+        }
 
         _ => return,
     }
 }
 
-
-fn pack(vec: &[u32], acc: &mut Vec<Vec<u32>>) {
-    match vec {
+// 9 Pack consecutive duplicates of list elements into sublists
+pub fn pack(vec: Vec<u32>, acc: &mut Vec<Vec<u32>>) {
+    match vec.as_slice() {
         [x, xs..] => {
-            let first = xs
-                .iter()
-                .take_while(|y| **y == x)
-                .collect::<Vec<&u32>>();
-                
+            let first = xs.iter()
+                          .take_while(|y| **y == x)
+                          .collect::<Vec<&u32>>();
+
             let mut first_list: Vec<u32> = Vec::new();
             first_list.push(x);
             for i in first {
                 first_list.push(*i);
             }
             acc.push(first_list);
-            
-            //First group, now we must group second part
-            let second = xs
-                .iter()
-                .skip_while(|y| **y == x)
-                .collect::<Vec<&u32>>();
+
+            // First group, now we must group second part
+            let second = xs.iter()
+                           .skip_while(|y| **y == x)
+                           .collect::<Vec<&u32>>();
             let mut second_list: Vec<u32> = Vec::new();
             for i in second {
                 second_list.push(*i);
             }
-            
-            pack(second_list.as_slice(), acc);
+
+            pack(second_list, acc);
         }
         _ => return,
     }
+}
+
+
+pub fn encode(vec: Vec<u32>) -> Vec<(usize, u32)> {
+    let mut packed: Vec<Vec<u32>> = Vec::new();
+    pack(vec, &mut packed);
+
+    packed.iter().map(|group| (group.len(), group[0])).collect::<Vec<(usize, u32)>>()
 }

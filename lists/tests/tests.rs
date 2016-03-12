@@ -1,3 +1,5 @@
+#![feature(slice_patterns)]
+
 extern crate lists;
 
 #[test]
@@ -79,8 +81,8 @@ fn test_flatten() {
 #[test]
 fn test_compress() {
     // 8 Eliminate consecutive duplicates of list elements.
-    let mut acc: Vec<Vec<u32>> = vec![;
-    lists::compress(vec![1, 1, 2, 2, 2, 3, 4], acc);
+    let mut acc: Vec<u32> = vec![];
+    lists::compress(vec![1, 1, 2, 2, 2, 3, 4], &mut acc);
     assert_eq!(acc, vec![1, 2, 3, 4]);
 }
 
@@ -88,6 +90,20 @@ fn test_compress() {
 fn test_pack() {
     // 9 Pack consecutive duplicates of list elements into sublists
     let mut acc: Vec<Vec<u32>> = vec![];
-    lists::pack(vec![1,1, 2,2,2, 3,3, 4, 5, 6,6,6, 7]);
-    assert_eq!(acc, vec![vec![1,1], vec![2,2,2], vec![3,3], vec![4], vec![5], vec![6,6,6], vec![7]]);
+    lists::pack(vec![1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 6, 6, 7], &mut acc);
+    assert_eq!(acc,
+               vec![vec![1, 1],
+                    vec![2, 2, 2],
+                    vec![3, 3],
+                    vec![4],
+                    vec![5],
+                    vec![6, 6, 6],
+                    vec![7]]);
+}
+
+#[test]
+fn test_encode() {
+    let res = lists::encode(vec![1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 1, 1, 1, 5, 5, 6]);
+    assert_eq!(res,
+               vec![(3, 1), (2, 2), (4, 3), (2, 4), (3, 1), (2, 5), (1, 6)]);
 }
