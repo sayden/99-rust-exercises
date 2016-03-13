@@ -102,14 +102,14 @@ pub fn compress<T: PartialEq + Copy>(vec: Vec<T>, acc: &mut Vec<T>) {
 }
 
 // 9 Pack consecutive duplicates of list elements into sublists
-pub fn pack(vec: Vec<u32>, acc: &mut Vec<Vec<u32>>) {
+pub fn pack<T: Copy + PartialEq>(vec: Vec<T>, acc: &mut Vec<Vec<T>>) {
     match vec.as_slice() {
         [x, xs..] => {
             let first = xs.iter()
                           .take_while(|y| **y == x)
-                          .collect::<Vec<&u32>>();
+                          .collect::<Vec<&T>>();
 
-            let mut first_list: Vec<u32> = Vec::new();
+            let mut first_list: Vec<T> = Vec::new();
             first_list.push(x);
             for i in first {
                 first_list.push(*i);
@@ -119,8 +119,8 @@ pub fn pack(vec: Vec<u32>, acc: &mut Vec<Vec<u32>>) {
             // First group, now we must group second part
             let second = xs.iter()
                            .skip_while(|y| **y == x)
-                           .collect::<Vec<&u32>>();
-            let mut second_list: Vec<u32> = Vec::new();
+                           .collect::<Vec<&T>>();
+            let mut second_list: Vec<T> = Vec::new();
             for i in second {
                 second_list.push(*i);
             }
