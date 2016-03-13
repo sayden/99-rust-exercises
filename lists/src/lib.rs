@@ -102,7 +102,9 @@ pub fn compress<T: PartialEq + Copy>(vec: Vec<T>, acc: &mut Vec<T>) {
 }
 
 // 9 Pack consecutive duplicates of list elements into sublists
-pub fn pack<T: Copy + PartialEq>(vec: Vec<T>, acc: &mut Vec<Vec<T>>) {
+pub fn pack<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<Vec<T>> {
+    let mut res: Vec<Vec<T>> = vec![];
+
     match vec.as_slice() {
         [x, xs..] => {
             let first = xs.iter()
@@ -114,7 +116,7 @@ pub fn pack<T: Copy + PartialEq>(vec: Vec<T>, acc: &mut Vec<Vec<T>>) {
             for i in first {
                 first_list.push(*i);
             }
-            acc.push(first_list);
+            res.push(first_list);
 
             // First group, now we must group second part
             let second = xs.iter()
@@ -125,16 +127,19 @@ pub fn pack<T: Copy + PartialEq>(vec: Vec<T>, acc: &mut Vec<Vec<T>>) {
                 second_list.push(*i);
             }
 
-            pack(second_list, acc);
+            let mut temp = pack(second_list);
+            res.append(&mut temp);
+
         }
-        _ => return,
+        _ => return res,
     }
+
+    res
 }
 
 // 10 Run-length encoding of a list.
 pub fn encode<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
-    let mut packed: Vec<Vec<T>> = Vec::new();
-    pack(vec, &mut packed);
+    let packed = pack(vec);
 
     packed.iter()
           .map(|group| (group.len(), group[0]))
@@ -149,8 +154,7 @@ pub enum EncodeType<T: Copy + PartialEq> {
 }
 
 pub fn encode_modified<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<EncodeType<T>> {
-    let mut packed: Vec<Vec<T>> = Vec::new();
-    pack(vec, &mut packed);
+    let packed: Vec<Vec<T>> = pack(vec);
 
     packed.iter()
           .map(|group| (group.len(), group[0]))

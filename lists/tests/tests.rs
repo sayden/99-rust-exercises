@@ -93,10 +93,9 @@ fn test_compress() {
 #[test]
 fn test_pack() {
     // 9 Pack consecutive duplicates of list elements into sublists
-    let mut acc: Vec<Vec<u32>> = vec![];
     let data: Vec<u32> = vec![1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 6, 6, 7];
-    lists::pack(data, &mut acc);
-    assert_eq!(acc,
+    let res = lists::pack(data);
+    assert_eq!(res,
                vec![vec![1, 1],
                     vec![2, 2, 2],
                     vec![3, 3],
