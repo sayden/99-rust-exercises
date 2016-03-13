@@ -81,16 +81,21 @@ fn test_flatten() {
 #[test]
 fn test_compress() {
     // 8 Eliminate consecutive duplicates of list elements.
-    let mut acc: Vec<u32> = vec![];
+    let mut acc = vec![];
     lists::compress(vec![1, 1, 2, 2, 2, 3, 4], &mut acc);
     assert_eq!(acc, vec![1, 2, 3, 4]);
+
+    let mut acc = vec![];
+    lists::compress(vec!['a', 'a', 'b', 'b', 'b', 'c', 'd'], &mut acc);
+    assert_eq!(acc, vec!['a', 'b', 'c', 'd']);
 }
 
 #[test]
 fn test_pack() {
     // 9 Pack consecutive duplicates of list elements into sublists
     let mut acc: Vec<Vec<u32>> = vec![];
-    lists::pack(vec![1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 6, 6, 7], &mut acc);
+    let data: Vec<u32> = vec![1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 6, 6, 7];
+    lists::pack(data, &mut acc);
     assert_eq!(acc,
                vec![vec![1, 1],
                     vec![2, 2, 2],

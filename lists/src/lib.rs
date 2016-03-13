@@ -1,4 +1,5 @@
 #![feature(slice_patterns)]
+#![feature(default_type_parameter_fallback)]
 
 // 1 Find the last element of a list.
 pub fn my_last<T: Clone>(vec: Vec<T>) -> T {
@@ -78,8 +79,8 @@ pub fn my_flatten<T: PartialEq>(b: Vec<NestedList<T>>, acc: &mut Vec<T>) {
     }
 }
 
-// 8 Eliminate consecutive duplicates of list elements.
-pub fn compress(vec: Vec<u32>, acc: &mut Vec<u32>) {
+// 8 Eliminate consecutive duplicates of list elements. dedup()
+pub fn compress<T: PartialEq + Copy>(vec: Vec<T>, acc: &mut Vec<T>) {
     match vec.as_slice() {
         [x] => acc.push(x),
 
@@ -87,8 +88,8 @@ pub fn compress(vec: Vec<u32>, acc: &mut Vec<u32>) {
             acc.push(x);
             let rest = xs.iter()
                          .skip_while(|y| x == **y)
-                         .collect::<Vec<&u32>>();
-            let mut new_list: Vec<u32> = Vec::new();
+                         .collect::<Vec<&T>>();
+            let mut new_list: Vec<T> = vec![];
             for i in rest {
                 new_list.push(*i);
             }
