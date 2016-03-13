@@ -179,3 +179,33 @@ pub fn decode_modified<T: Copy + PartialEq>(vec: Vec<EncodeType<T>>) -> Vec<T> {
     }
     res
 }
+
+// 13 Run-length encoding of a list (direct solution).
+pub fn encode_direct<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
+    let mut res: Vec<(usize, T)> = vec![];
+
+    match vec.as_slice() {
+        [x] => res.push((1usize, x)),
+        [x, xs..] => {
+            let first = xs.iter()
+                          .take_while(|y| **y == x)
+                          .collect::<Vec<&T>>();
+
+            res.push((first.len() + 1, x));
+
+            // First group, now we must group second part
+            let second = xs.iter()
+                           .skip_while(|y| **y == x)
+                           .collect::<Vec<&T>>();
+            let mut second_list: Vec<T> = Vec::new();
+            for i in second {
+                second_list.push(*i);
+            }
+            let mut temp = encode_direct(second_list);
+            res.append(&mut temp);
+        }
+        _ => return res,
+    }
+
+    res
+}

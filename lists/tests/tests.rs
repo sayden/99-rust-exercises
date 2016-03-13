@@ -140,3 +140,12 @@ fn test_decode_modified() {
     let res = lists::decode_modified(data);
     assert_eq!(res, vec![1, 3, 1, 2, 4, 4, 4, 5, 5, 5, 5, 5]);
 }
+
+#[test]
+fn test_encode_direct() {
+    // 13 Run-length encoding of a list (direct solution).
+    let res = lists::encode_direct(vec![1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 1, 1, 1, 5, 5, 6]);
+    assert_eq!(res,
+               vec![(3, 1), (2, 2), (4, 3), (2, 4), (3, 1), (2, 5), (1, 6)]);
+
+}
