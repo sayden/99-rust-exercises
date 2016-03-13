@@ -148,3 +148,11 @@ fn test_encode_direct() {
                vec![(3, 1), (2, 2), (4, 3), (2, 4), (3, 1), (2, 5), (1, 6)]);
 
 }
+
+#[test]
+fn test_dupli() {
+    // 14 Duplicate the elements of a list.
+    assert_eq!(vec![1, 1, 2, 2, 3, 3], lists::dupli(vec![1, 2, 3]));
+    assert_eq!(vec!['a', 'a', 'b', 'b', 'c', 'c'],
+               lists::dupli(vec!['a', 'b', 'c']));
+}

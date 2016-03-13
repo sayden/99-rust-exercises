@@ -213,3 +213,8 @@ pub fn encode_direct<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
 
     res
 }
+
+// 14 Duplicate the elements of a list.
+pub fn dupli<T: Copy>(vec: Vec<T>) -> Vec<T> {
+    vec.into_iter().flat_map(|x| vec![x, x]).collect()
+}
