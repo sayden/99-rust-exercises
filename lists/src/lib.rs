@@ -306,3 +306,16 @@ pub fn rnd_select<T: Copy>(vec: Vec<T>, amount: usize) -> Vec<T> {
     }
     res
 }
+
+// 24 Lotto: Draw N different random numbers from the set 1..M.
+pub fn rnd_select_lotto(amount: usize, max: usize) -> Vec<u32> {
+    let mut res: Vec<u32> = Vec::new();
+
+    let mut count = 0;
+    while count < amount {
+        let rnd = thread_rng().gen_range::<usize>(1, max + 1);
+        res.push(rnd as u32);
+        count += 1
+    }
+    res
+}

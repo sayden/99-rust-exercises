@@ -228,3 +228,14 @@ fn test_rnd_select() {
         assert_eq!(data.contains(&i), true);
     }
 }
+
+#[test]
+fn test_rnd_lotto() {
+    let res = lists::rnd_select_lotto(5, 20);
+    assert_eq!(res.len(), 5);
+
+    for i in res {
+        println!("{}", i);
+        assert_eq!(i <= 20 && i >= 1, true);
+    }
+}
