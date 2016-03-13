@@ -16,4 +16,5 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 12. Decode a run-length encoded list.
 13. Run-length encoding of a list (direct solution).
 14. Duplicate the elements of a list.
-15. 
+15. Replicate the elements of a list a given number of times.
+16. 

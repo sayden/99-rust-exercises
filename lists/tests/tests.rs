@@ -156,3 +156,13 @@ fn test_dupli() {
     assert_eq!(vec!['a', 'a', 'b', 'b', 'c', 'c'],
                lists::dupli(vec!['a', 'b', 'c']));
 }
+
+
+#[test]
+fn test_repli() {
+    // 15 Replicate the elements of a list a given number of times.
+    assert_eq!(vec![1, 1, 1, 2, 2, 2, 3, 3, 3],
+               lists::repli(vec![1, 2, 3], 3));
+    assert_eq!(vec!['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c'],
+               lists::repli(vec!['a', 'b', 'c'], 3));
+}

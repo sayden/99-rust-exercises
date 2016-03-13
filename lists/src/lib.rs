@@ -218,3 +218,16 @@ pub fn encode_direct<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
 pub fn dupli<T: Copy>(vec: Vec<T>) -> Vec<T> {
     vec.into_iter().flat_map(|x| vec![x, x]).collect()
 }
+
+
+// 15 Replicate the elements of a list a given number of times.
+pub fn repli<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
+    vec.into_iter()
+       .flat_map(|x| {
+           vec![x]
+               .into_iter()
+               .cycle()
+               .take(n)
+       })
+       .collect()
+}
