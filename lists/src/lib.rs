@@ -284,3 +284,8 @@ pub fn insert_at<T: Copy>(pos: usize, vec: Vec<T>, elem: T) -> Vec<T> {
 
     res
 }
+
+// 22 Create a list containing all integers within a given range.
+pub fn range(start: usize, end: usize) -> Vec<u32> {
+    (start..end + 1).into_iter().map(|x| x as u32).collect()
+}

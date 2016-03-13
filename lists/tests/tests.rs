@@ -212,3 +212,9 @@ fn test_insert_at() {
     assert_eq!(lists::insert_at(2, vec![1, 2, 3, 4, 5], 99),
                vec![1, 99, 2, 3, 4, 5]);
 }
+
+#[test]
+fn test_range() {
+    // 22 Create a list containing all integers within a given range.
+    assert_eq!(lists::range(3, 9), vec![3, 4, 5, 6, 7, 8, 9]);
+}

@@ -23,3 +23,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 19. Rotate a list N places to the left.
 20. Remove the K'th element from a list.
 21. Insert an element at a given position into a list.
+22. Create a list containing all integers within a given range.
