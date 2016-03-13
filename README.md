@@ -13,3 +13,7 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 9. Pack consecutive duplicates of list elements into sublists. If a list contains repeated elements they should be placed in separate sublists.
 10. Run-length encoding of a list
 11. Run-length encoding of a list modified
+12. Decode a run-length encoded list.
+13. Run-length encoding of a list (direct solution).
+14. Duplicate the elements of a list.
+15. 
