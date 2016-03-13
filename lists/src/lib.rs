@@ -143,7 +143,7 @@ pub fn encode<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
 
 // 11 Modified run-length encoding.
 #[derive(Debug, PartialEq, Clone)]
-pub enum EncodeType<T> {
+pub enum EncodeType<T: Copy + PartialEq> {
     Single(T),
     Multiple(usize, T),
 }
@@ -162,4 +162,20 @@ pub fn encode_modified<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<EncodeType<T>> {
               }
           })
           .collect::<Vec<EncodeType<T>>>()
+}
+
+// 12 Decode a run-length encoded list.
+pub fn decode_modified<T: Copy + PartialEq>(vec: Vec<EncodeType<T>>) -> Vec<T> {
+    let mut res: Vec<T> = vec![];
+    for i in vec {
+        match i {
+            EncodeType::Single(e) => res.push(e),
+            EncodeType::Multiple(n, e) => {
+                for _ in 0..n {
+                    res.push(e);
+                }
+            }
+        }
+    }
+    res
 }

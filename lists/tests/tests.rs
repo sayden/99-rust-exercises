@@ -127,3 +127,16 @@ fn test_encode_modified() {
                     lists::EncodeType::Multiple(2, 5),
                     lists::EncodeType::Single(6)]);
 }
+
+#[test]
+fn test_decode_modified() {
+    // 12 Decode a run-length encoded list.
+    let data = vec![lists::EncodeType::Single(1),
+                    lists::EncodeType::Single(3),
+                    lists::EncodeType::Single(1),
+                    lists::EncodeType::Single(2),
+                    lists::EncodeType::Multiple(3, 4),
+                    lists::EncodeType::Multiple(5, 5)];
+    let res = lists::decode_modified(data);
+    assert_eq!(res, vec![1, 3, 1, 2, 4, 4, 4, 5, 5, 5, 5, 5]);
+}
