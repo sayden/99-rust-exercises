@@ -233,7 +233,7 @@ pub fn repli<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
 }
 
 // 16 Drop every N'th element from a list.
-pub fn drop<T: Copy + std::fmt::Display>(vec: Vec<T>, n: usize) -> Vec<T> {
+pub fn drop<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
     let mut res = vec![];
     if n == 1 || n == 0 || vec.len() == 0 {
         return res;
@@ -242,12 +242,34 @@ pub fn drop<T: Copy + std::fmt::Display>(vec: Vec<T>, n: usize) -> Vec<T> {
     let length = vec.len();
 
     for i in 1..length + 1 {
-        println!("i:{}, i%n={}", i, i % n);
         if (i % n) != 0 {
-            println!("_{}", vec[i - 1]);
             res.push(vec[i - 1]);
         }
     }
 
     res
+}
+
+// 17 Split a list into two parts; the length of the first part is given.
+pub fn split<T: Copy>(vec: Vec<T>, index: usize) -> Vec<Vec<T>> {
+    let mut res: Vec<Vec<T>> = Vec::new();
+    let vec2 = vec.clone();
+
+    let first = vec.into_iter()
+                   .take(index)
+                   .collect::<Vec<T>>();
+
+    res.push(first);
+
+    // First group, now we must group second part
+    let second = vec2.into_iter()
+                     .skip(index)
+                     .collect::<Vec<T>>();
+    res.push(second);
+    res
+}
+
+// 18 Extract a slice from a list.
+pub fn slice<T: Copy + std::fmt::Display>(vec: Vec<T>, start: usize, end: usize) -> Vec<T> {
+    vec.into_iter().skip(start - 1).take(end - start + 1).collect()
 }

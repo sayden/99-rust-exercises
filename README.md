@@ -18,4 +18,6 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 14. Duplicate the elements of a list.
 15. Replicate the elements of a list a given number of times.
 16. Drop every N'th element from a list.
-17. 
+17. Split a list into two parts; the length of the first part is given.
+18. Extract a slice from a list.
+19. 

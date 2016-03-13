@@ -176,3 +176,18 @@ fn test_drop() {
     assert_eq!(lists::drop(vec![1, 2, 3], 1), vec![]);
     assert_eq!(lists::drop(vec![1, 2, 3], 5), vec![1, 2, 3]);
 }
+
+#[test]
+fn test_split() {
+    // 17 Split a list into two parts; the length of the first part is given.
+    assert_eq!(lists::split(vec![1, 2, 3, 4, 5], 2),
+               vec![vec![1, 2], vec![3, 4, 5]]);
+}
+
+#[test]
+fn test_slice() {
+    // 18 Extract a slice from a list.
+    assert_eq!(lists::slice(vec![1, 2, 3, 4, 5], 2, 4), vec![2, 3, 4]);
+    assert_eq!(lists::slice(vec!['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 3, 6),
+               vec!['c', 'd', 'e', 'f']);
+}
