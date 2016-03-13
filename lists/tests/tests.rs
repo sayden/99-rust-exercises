@@ -221,6 +221,7 @@ fn test_range() {
 
 #[test]
 fn test_rnd_select() {
+    // 23 Extract a given number of randomly selected elements from a list.
     let data = vec![1, 2, 3, 4, 5];
     let res: Vec<u32> = lists::rnd_select(data.clone(), 3);
     assert_eq!(res.len(), 3);
@@ -231,11 +232,21 @@ fn test_rnd_select() {
 
 #[test]
 fn test_rnd_lotto() {
+    // 24 Lotto: Draw N different random numbers from the set 1..M.
     let res = lists::rnd_select_lotto(5, 20);
     assert_eq!(res.len(), 5);
 
     for i in res {
-        println!("{}", i);
         assert_eq!(i <= 20 && i >= 1, true);
+    }
+}
+
+#[test]
+fn test_shuffle() {
+    // 25 Generate a random permutation of the elements of a list.
+    let data = vec![1, 2, 3, 4, 5];
+    let res = lists::shuffle(data.clone());
+    for i in res {
+        assert_eq!(data.contains(&i), true);
     }
 }

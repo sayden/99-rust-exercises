@@ -319,3 +319,10 @@ pub fn rnd_select_lotto(amount: usize, max: usize) -> Vec<u32> {
     }
     res
 }
+
+// 25 Generate a random permutation of the elements of a list.
+pub fn shuffle<T: Copy>(vec: Vec<T>) -> Vec<T> {
+    let mut res = vec.clone();
+    thread_rng().shuffle(&mut res);
+    res
+}
