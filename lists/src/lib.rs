@@ -270,6 +270,11 @@ pub fn split<T: Copy>(vec: Vec<T>, index: usize) -> Vec<Vec<T>> {
 }
 
 // 18 Extract a slice from a list.
-pub fn slice<T: Copy + std::fmt::Display>(vec: Vec<T>, start: usize, end: usize) -> Vec<T> {
+pub fn slice<T: Copy>(vec: Vec<T>, start: usize, end: usize) -> Vec<T> {
     vec.into_iter().skip(start - 1).take(end - start + 1).collect()
+}
+
+// 19 Rotate a list N places to the left.
+pub fn rotate<T: Copy>(vec: Vec<T>, places: usize) -> Vec<T> {
+    vec.clone().into_iter().skip(places).chain(vec.into_iter().take(places)).collect()
 }

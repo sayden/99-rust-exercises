@@ -191,3 +191,11 @@ fn test_slice() {
     assert_eq!(lists::slice(vec!['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 3, 6),
                vec!['c', 'd', 'e', 'f']);
 }
+
+#[test]
+fn test_rotate() {
+    // 19 Rotate a list N places to the left.
+    assert_eq!(lists::rotate(vec![1, 2, 3, 4, 5], 2), vec![3, 4, 5, 1, 2]);
+    assert_eq!(lists::rotate(vec!['a', 'a', 'b', 'b', 'c', 'd', 'e', 'f', 'g'], 5),
+               vec!['d', 'e', 'f', 'g', 'a', 'a', 'b', 'b', 'c']);
+}
