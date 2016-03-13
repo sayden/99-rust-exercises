@@ -130,10 +130,35 @@ pub fn pack(vec: Vec<u32>, acc: &mut Vec<Vec<u32>>) {
     }
 }
 
-
+// 10 Run-length encoding of a list.
 pub fn encode(vec: Vec<u32>) -> Vec<(usize, u32)> {
     let mut packed: Vec<Vec<u32>> = Vec::new();
     pack(vec, &mut packed);
 
-    packed.iter().map(|group| (group.len(), group[0])).collect::<Vec<(usize, u32)>>()
+    packed.iter()
+          .map(|group| (group.len(), group[0]))
+          .collect::<Vec<(usize, u32)>>()
+}
+
+// 11 Modified run-length encoding.
+#[derive(Debug, PartialEq)]
+pub enum EncodeType {
+    Single(u32),
+    Multiple(usize, u32),
+}
+
+pub fn encode_modified(vec: Vec<u32>) -> Vec<EncodeType> {
+    let mut packed: Vec<Vec<u32>> = Vec::new();
+    pack(vec, &mut packed);
+
+    packed.iter()
+          .map(|group| (group.len(), group[0]))
+          .map(|t| {
+              if t.0 == 1 {
+                  EncodeType::Single(t.1)
+              } else {
+                  EncodeType::Multiple(t.0, t.1)
+              }
+          })
+          .collect::<Vec<EncodeType>>()
 }

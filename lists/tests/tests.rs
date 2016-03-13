@@ -103,7 +103,22 @@ fn test_pack() {
 
 #[test]
 fn test_encode() {
+    // 10 Run-length encoding of a list.
     let res = lists::encode(vec![1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 1, 1, 1, 5, 5, 6]);
     assert_eq!(res,
                vec![(3, 1), (2, 2), (4, 3), (2, 4), (3, 1), (2, 5), (1, 6)]);
+}
+
+#[test]
+fn test_encode_modified() {
+    // 10 Run-length encoding of a list.
+    let res = lists::encode_modified(vec![1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 1, 1, 1, 5, 5, 6]);
+    assert_eq!(res,
+               vec![lists::EncodeType::Multiple(3, 1),
+                    lists::EncodeType::Multiple(2, 2),
+                    lists::EncodeType::Multiple(4, 3),
+                    lists::EncodeType::Multiple(2, 4),
+                    lists::EncodeType::Multiple(3, 1),
+                    lists::EncodeType::Multiple(2, 5),
+                    lists::EncodeType::Single(6)]);
 }

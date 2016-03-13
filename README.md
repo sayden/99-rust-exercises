@@ -12,4 +12,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 8. Eliminate consecutive duplicates of list elements.
 9. Pack consecutive duplicates of list elements into sublists. If a list contains repeated elements they should be placed in separate sublists.
 10. Run-length encoding of a list
-11. WIP
+11. Run-length encoding of a list modified
