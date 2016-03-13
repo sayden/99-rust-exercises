@@ -231,3 +231,23 @@ pub fn repli<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
        })
        .collect()
 }
+
+// 16 Drop every N'th element from a list.
+pub fn drop<T: Copy + std::fmt::Display>(vec: Vec<T>, n: usize) -> Vec<T> {
+    let mut res = vec![];
+    if n == 1 || n == 0 || vec.len() == 0 {
+        return res;
+    }
+
+    let length = vec.len();
+
+    for i in 1..length + 1 {
+        println!("i:{}, i%n={}", i, i % n);
+        if (i % n) != 0 {
+            println!("_{}", vec[i - 1]);
+            res.push(vec[i - 1]);
+        }
+    }
+
+    res
+}

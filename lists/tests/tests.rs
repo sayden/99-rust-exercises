@@ -166,3 +166,13 @@ fn test_repli() {
     assert_eq!(vec!['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c'],
                lists::repli(vec!['a', 'b', 'c'], 3));
 }
+
+#[test]
+fn test_drop() {
+    // 16 Drop every N'th element from a list.
+    assert_eq!(lists::drop(vec![1, 2, 3, 4, 5, 6, 7, 8], 2), [1, 3, 5, 7]);;
+    assert_eq!(lists::drop(vec![1, 2, 3, 4, 5, 6, 7, 8], 3),
+               [1, 2, 4, 5, 7, 8]);
+    assert_eq!(lists::drop(vec![1, 2, 3], 1), vec![]);
+    assert_eq!(lists::drop(vec![1, 2, 3], 5), vec![1, 2, 3]);
+}

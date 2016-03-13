@@ -17,4 +17,5 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 13. Run-length encoding of a list (direct solution).
 14. Duplicate the elements of a list.
 15. Replicate the elements of a list a given number of times.
-16. 
+16. Drop every N'th element from a list.
+17. 
