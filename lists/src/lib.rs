@@ -269,3 +269,18 @@ pub fn rotate<T: Copy>(vec: Vec<T>, places: usize) -> Vec<T> {
 pub fn remove<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
     vec.clone().into_iter().take(n - 1).chain(vec.into_iter().skip(n)).collect()
 }
+
+// 21 Insert an element at a given position into a list.
+pub fn insert_at<T: Copy>(pos: usize, vec: Vec<T>, elem: T) -> Vec<T> {
+    let mut res: Vec<T> = vec![];
+
+    for (i, v) in vec.iter().enumerate() {
+        if i == pos - 1 {
+            res.push(elem);
+        }
+
+        res.push(*v);
+    }
+
+    res
+}

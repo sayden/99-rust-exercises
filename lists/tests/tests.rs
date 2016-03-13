@@ -205,3 +205,10 @@ fn test_remove() {
     // 20 Remove the K'th element from a list.
     assert_eq!(lists::remove(vec![1, 2, 3, 4], 2), vec![1, 3, 4]);
 }
+
+#[test]
+fn test_insert_at() {
+    // 21 Insert an element at a given position into a list.
+    assert_eq!(lists::insert_at(2, vec![1, 2, 3, 4, 5], 99),
+               vec![1, 99, 2, 3, 4, 5]);
+}
