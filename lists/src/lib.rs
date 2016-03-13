@@ -132,24 +132,24 @@ pub fn pack<T: Copy + PartialEq>(vec: Vec<T>, acc: &mut Vec<Vec<T>>) {
 }
 
 // 10 Run-length encoding of a list.
-pub fn encode(vec: Vec<u32>) -> Vec<(usize, u32)> {
-    let mut packed: Vec<Vec<u32>> = Vec::new();
+pub fn encode<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
+    let mut packed: Vec<Vec<T>> = Vec::new();
     pack(vec, &mut packed);
 
     packed.iter()
           .map(|group| (group.len(), group[0]))
-          .collect::<Vec<(usize, u32)>>()
+          .collect::<Vec<(usize, T)>>()
 }
 
 // 11 Modified run-length encoding.
-#[derive(Debug, PartialEq)]
-pub enum EncodeType {
-    Single(u32),
-    Multiple(usize, u32),
+#[derive(Debug, PartialEq, Clone)]
+pub enum EncodeType<T> {
+    Single(T),
+    Multiple(usize, T),
 }
 
-pub fn encode_modified(vec: Vec<u32>) -> Vec<EncodeType> {
-    let mut packed: Vec<Vec<u32>> = Vec::new();
+pub fn encode_modified<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<EncodeType<T>> {
+    let mut packed: Vec<Vec<T>> = Vec::new();
     pack(vec, &mut packed);
 
     packed.iter()
@@ -161,5 +161,5 @@ pub fn encode_modified(vec: Vec<u32>) -> Vec<EncodeType> {
                   EncodeType::Multiple(t.0, t.1)
               }
           })
-          .collect::<Vec<EncodeType>>()
+          .collect::<Vec<EncodeType<T>>>()
 }
