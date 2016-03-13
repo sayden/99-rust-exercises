@@ -199,3 +199,9 @@ fn test_rotate() {
     assert_eq!(lists::rotate(vec!['a', 'a', 'b', 'b', 'c', 'd', 'e', 'f', 'g'], 5),
                vec!['d', 'e', 'f', 'g', 'a', 'a', 'b', 'b', 'c']);
 }
+
+#[test]
+fn test_remove() {
+    // 20 Remove the K'th element from a list.
+    assert_eq!(lists::remove(vec![1, 2, 3, 4], 2), vec![1, 3, 4]);
+}

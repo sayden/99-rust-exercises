@@ -198,7 +198,7 @@ pub fn encode_direct<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
             res.push((first.len() + 1, x));
 
             // First group, now we must group second part
-            let second = xs.iter()
+            let second = xs.into_iter()
                            .skip_while(|y| **y == x)
                            .collect::<Vec<&T>>();
             let mut second_list: Vec<T> = Vec::new();
@@ -252,21 +252,7 @@ pub fn drop<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
 
 // 17 Split a list into two parts; the length of the first part is given.
 pub fn split<T: Copy>(vec: Vec<T>, index: usize) -> Vec<Vec<T>> {
-    let mut res: Vec<Vec<T>> = Vec::new();
-    let vec2 = vec.clone();
-
-    let first = vec.into_iter()
-                   .take(index)
-                   .collect::<Vec<T>>();
-
-    res.push(first);
-
-    // First group, now we must group second part
-    let second = vec2.into_iter()
-                     .skip(index)
-                     .collect::<Vec<T>>();
-    res.push(second);
-    res
+    vec![vec.clone().into_iter().take(index).collect(), vec.into_iter().skip(index).collect()]
 }
 
 // 18 Extract a slice from a list.
@@ -277,4 +263,9 @@ pub fn slice<T: Copy>(vec: Vec<T>, start: usize, end: usize) -> Vec<T> {
 // 19 Rotate a list N places to the left.
 pub fn rotate<T: Copy>(vec: Vec<T>, places: usize) -> Vec<T> {
     vec.clone().into_iter().skip(places).chain(vec.into_iter().take(places)).collect()
+}
+
+// 20 Remove the K'th element from a list.
+pub fn remove<T: Copy>(vec: Vec<T>, n: usize) -> Vec<T> {
+    vec.clone().into_iter().take(n - 1).chain(vec.into_iter().skip(n)).collect()
 }

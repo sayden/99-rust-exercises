@@ -21,3 +21,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 17. Split a list into two parts; the length of the first part is given.
 18. Extract a slice from a list.
 19. Rotate a list N places to the left.
+20. Remove the K'th element from a list.
