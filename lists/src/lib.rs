@@ -1,6 +1,8 @@
 #![feature(slice_patterns)]
 #![feature(default_type_parameter_fallback)]
 
+extern crate rand;
+
 // 1 Find the last element of a list.
 pub fn my_last<T: Clone>(vec: Vec<T>) -> T {
     let mut reversed = vec;
@@ -288,4 +290,19 @@ pub fn insert_at<T: Copy>(pos: usize, vec: Vec<T>, elem: T) -> Vec<T> {
 // 22 Create a list containing all integers within a given range.
 pub fn range(start: usize, end: usize) -> Vec<u32> {
     (start..end + 1).into_iter().map(|x| x as u32).collect()
+}
+
+// 23 Extract a given number of randomly selected elements from a list.
+use rand::{thread_rng, Rng};
+
+pub fn rnd_select<T: Copy>(vec: Vec<T>, amount: usize) -> Vec<T> {
+    let mut res: Vec<T> = Vec::new();
+
+    let mut count = 0;
+    while count < amount {
+        let rnd = thread_rng().gen_range::<usize>(0, amount);
+        res.push(vec[rnd]);
+        count += 1
+    }
+    res
 }

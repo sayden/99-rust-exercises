@@ -218,3 +218,13 @@ fn test_range() {
     // 22 Create a list containing all integers within a given range.
     assert_eq!(lists::range(3, 9), vec![3, 4, 5, 6, 7, 8, 9]);
 }
+
+#[test]
+fn test_rnd_select() {
+    let data = vec![1, 2, 3, 4, 5];
+    let res: Vec<u32> = lists::rnd_select(data.clone(), 3);
+    assert_eq!(res.len(), 3);
+    for i in res {
+        assert_eq!(data.contains(&i), true);
+    }
+}
