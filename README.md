@@ -27,3 +27,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 23. Extract a given number of randomly selected elements from a list.
 24. Lotto: Draw N different random numbers from the set 1..M.
 25. Generate a random permutation of the elements of a list.
+26. Generate the combinations of K distinct objects chosen from the N elements of a list

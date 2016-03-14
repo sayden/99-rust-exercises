@@ -326,3 +326,33 @@ pub fn shuffle<T: Copy>(vec: Vec<T>) -> Vec<T> {
     thread_rng().shuffle(&mut res);
     res
 }
+
+// 26 Generate the combinations of K distinct objects chosen from the N elements of a list
+pub fn combinations(n: usize, vec: Vec<u32>) -> Vec<Vec<u32>> {
+    if n == 0 {
+        return vec![vec![]];
+    } else if vec.len() == 0 {
+        return vec![];
+    } else {
+        match vec.as_slice() {
+            [] => vec![],
+            [x, xs..] => {
+                // Convert xs slice to vector
+                let mut _xs: Vec<u32> = vec![];
+                for i in xs {
+                    _xs.push(*i);
+                }
+
+                let mut d: Vec<Vec<u32>> = combinations(n, _xs.clone());
+                let b: Vec<Vec<u32>> = combinations(n - 1, _xs);
+                let mut res: Vec<Vec<u32>> = Vec::new();
+                for mut list in b {
+                    list.insert(0, x);
+                    res.push(list);
+                }
+                res.append(&mut d);
+                res
+            }
+        }
+    }
+}

@@ -250,3 +250,25 @@ fn test_shuffle() {
         assert_eq!(data.contains(&i), true);
     }
 }
+
+#[test]
+fn test_combinations() {
+    // 26 Generate the combinations of K distinct objects chosen from the N elements of a list
+    let data = vec![1, 2, 3];
+    let length = 2;
+    let res = lists::combinations(length, data);
+    let expected = vec![vec![1, 2], vec![1, 3], vec![2, 3]];
+    assert_eq!(expected, res);
+
+    let data = vec![1, 2, 3];
+    let length = 3;
+    let res = lists::combinations(length, data);
+    let expected = vec![vec![1, 2, 3]];
+    assert_eq!(expected, res);
+
+    let data = vec![1, 2, 3, 4];
+    let length = 3;
+    let res = lists::combinations(length, data);
+    let expected = vec![vec![1, 2, 3], vec![1, 2, 4], vec![1, 3, 4], vec![2, 3, 4]];
+    assert_eq!(expected, res);
+}
