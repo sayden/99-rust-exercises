@@ -32,3 +32,10 @@ pub fn gcd(x: i32, y: i32) -> i32 {
         gcd(y, (x.checked_rem(y).unwrap()))
     }
 }
+
+
+// 33 Determine whether two positive integer numbers are coprime.
+// Two numbers are coprime if their greatest common divisor equals 1.
+pub fn coprime(x: i32, y: i32) -> bool {
+    gcd(x, y) == 1
+}

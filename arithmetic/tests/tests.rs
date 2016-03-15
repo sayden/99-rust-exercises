@@ -19,3 +19,10 @@ fn test_gcd() {
     assert_eq!(arithmetic::gcd(-3, -6), 3);
     assert_eq!(arithmetic::gcd(-3, 6), 3);
 }
+
+#[test]
+fn test_coprime() {
+    // 33 Determine whether two positive integer numbers are coprime.
+    // Two numbers are coprime if their greatest common divisor equals 1.
+    assert_eq!(arithmetic::coprime(35, 64), true);
+}

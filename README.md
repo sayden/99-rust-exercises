@@ -36,4 +36,6 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 
 ## Arithmetic
 31. Determine whether a given integer number is prime.
-32. 
+32. Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+33. Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+34. 
