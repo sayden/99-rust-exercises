@@ -272,3 +272,17 @@ fn test_combinations() {
     let expected = vec![vec![1, 2, 3], vec![1, 2, 4], vec![1, 3, 4], vec![2, 3, 4]];
     assert_eq!(expected, res);
 }
+
+#[test]
+fn test_lsort() {
+    // 28 Sorting a list of lists according to length of sublists
+    let data = vec![vec![1, 2, 3], vec![1, 2], vec![1, 2, 3, 4], vec![1]];
+    let expected = vec![vec![1], vec![1, 2], vec![1, 2, 3], vec![1, 2, 3, 4]];
+    let res = lists::lsort(data);
+    assert_eq!(res, expected);
+
+    let data = vec![vec![1, 2, 3], vec![1, 2], vec![1, 2, 3], vec![1]];
+    let expected = vec![vec![1], vec![1, 2], vec![1, 2, 3], vec![1, 2, 3]];
+    let res = lists::lsort(data);
+    assert_eq!(res, expected);
+}

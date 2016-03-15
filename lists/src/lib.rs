@@ -356,3 +356,21 @@ pub fn combinations(n: usize, vec: Vec<u32>) -> Vec<Vec<u32>> {
         }
     }
 }
+
+// 27 Group the elements of a set into disjoint subsets.
+
+// 28 Sorting a list of lists according to length of sublists
+pub fn lsort<T: Copy>(list: Vec<Vec<T>>) -> Vec<Vec<T>> {
+    let mut _list = list.clone();
+    _list.sort_by(|x, y| {
+        if x.len() > y.len() {
+            std::cmp::Ordering::Greater
+        } else if x.len() < y.len() {
+            std::cmp::Ordering::Less
+        } else {
+            std::cmp::Ordering::Equal
+        }
+    });
+
+    _list
+}
