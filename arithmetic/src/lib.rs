@@ -25,3 +25,10 @@ pub fn is_prime(n: u32) -> bool {
 }
 
 // 32 Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+pub fn gcd(x: i32, y: i32) -> i32 {
+    if y == 0 {
+        x.abs()
+    } else {
+        gcd(y, (x.checked_rem(y).unwrap()))
+    }
+}

@@ -15,4 +15,7 @@ fn test_is_prime() {
 #[test]
 fn test_gcd() {
     // 32 Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+    assert_eq!(arithmetic::gcd(36, 63), 9);
+    assert_eq!(arithmetic::gcd(-3, -6), 3);
+    assert_eq!(arithmetic::gcd(-3, 6), 3);
 }
