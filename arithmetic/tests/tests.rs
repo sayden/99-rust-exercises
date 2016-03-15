@@ -26,3 +26,11 @@ fn test_coprime() {
     // Two numbers are coprime if their greatest common divisor equals 1.
     assert_eq!(arithmetic::coprime(35, 64), true);
 }
+
+#[test]
+fn test_totient() {
+    // 34 Calculate Euler's totient function phi(m).
+    assert_eq!(arithmetic::totient(10), 4);
+    assert_eq!(arithmetic::totient(67), 66);
+    assert_eq!(arithmetic::totient(45), 24);
+}

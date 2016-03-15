@@ -39,3 +39,11 @@ pub fn gcd(x: i32, y: i32) -> i32 {
 pub fn coprime(x: i32, y: i32) -> bool {
     gcd(x, y) == 1
 }
+
+// 34 Calculate Euler's totient function phi(m).
+pub fn totient(n: i32) -> i32 {
+    match n {
+        1 => 1,
+        a => (1..a).into_iter().filter(|b| coprime(*b, n)).collect::<Vec<i32>>().len() as i32,
+    }
+}
