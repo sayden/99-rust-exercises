@@ -274,6 +274,16 @@ fn test_combinations() {
 }
 
 #[test]
+fn test_combination() {
+    let people = vec!["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"];
+    let res = lists::combination(vec![2, 3, 4], people);
+    assert_eq!(res[0],
+               vec![vec!["aldo", "beat"],
+                    vec!["carla", "david", "evi"],
+                    vec!["flip", "gary", "hugo", "ida"]]);
+}
+
+#[test]
 fn test_lsort() {
     // 28 Sorting a list of lists according to length of sublists
     let data = vec![vec![1, 2, 3], vec![1, 2], vec![1, 2, 3, 4], vec![1]];

@@ -328,7 +328,7 @@ pub fn shuffle<T: Copy>(vec: Vec<T>) -> Vec<T> {
 }
 
 // 26 Generate the combinations of K distinct objects chosen from the N elements of a list
-pub fn combinations(n: usize, vec: Vec<u32>) -> Vec<Vec<u32>> {
+pub fn combinations<T: Copy>(n: usize, vec: Vec<T>) -> Vec<Vec<T>> {
     if n == 0 {
         return vec![vec![]];
     } else if vec.len() == 0 {
@@ -338,14 +338,14 @@ pub fn combinations(n: usize, vec: Vec<u32>) -> Vec<Vec<u32>> {
             [] => vec![],
             [x, xs..] => {
                 // Convert xs slice to vector
-                let mut _xs: Vec<u32> = vec![];
+                let mut _xs: Vec<T> = vec![];
                 for i in xs {
                     _xs.push(*i);
                 }
 
-                let mut d: Vec<Vec<u32>> = combinations(n, _xs.clone());
-                let b: Vec<Vec<u32>> = combinations(n - 1, _xs);
-                let mut res: Vec<Vec<u32>> = Vec::new();
+                let mut d: Vec<Vec<T>> = combinations(n, _xs.clone());
+                let b: Vec<Vec<T>> = combinations(n - 1, _xs);
+                let mut res: Vec<Vec<T>> = Vec::new();
                 for mut list in b {
                     list.insert(0, x);
                     res.push(list);
@@ -357,7 +357,68 @@ pub fn combinations(n: usize, vec: Vec<u32>) -> Vec<Vec<u32>> {
     }
 }
 
+
 // 27 Group the elements of a set into disjoint subsets.
+pub fn combination<T: Copy + PartialEq>(agr: Vec<usize>, vec: Vec<T>) -> Vec<Vec<Vec<T>>> {
+    // Generate combinations of 2
+    let comb_2 = combinations(2, vec.clone());
+
+    // Generate combinations of 3
+    let comb_3 = combinations(3, vec.clone());
+
+    // Generate combinations of 4
+    let comb_4 = combinations(4, vec.clone());
+
+    // Now generate an array with all possible combinations of the three
+    let temp = vec![comb_2.clone(), comb_3.clone(), comb_4.clone()];
+    let mut combined: Vec<Vec<Vec<T>>> = Vec::new();
+    for i in 0..comb_2.len() {
+        for j in 0..comb_3.len() {
+            for k in 0..comb_4.len() {
+                combined.push(vec![comb_2[i].clone(), comb_3[j].clone(), comb_4[k].clone()]);
+            }
+        }
+    }
+
+
+    // Finally, iterate over every possible combination and delete those that have
+    // items in common (items are repeated)
+
+    let mut res = Vec::new();
+    'start: for combination in combined {
+        // Search any item of the first list of 2 elements in the second list of 3
+        for i in &combination[0] {
+            for j in &combination[1] {
+                if i == j {
+                    continue 'start;
+                }
+            }
+        }
+
+        // Search any item of the first list of 2 elements in the third list of 4
+        for i in &combination[0] {
+            for j in &combination[2] {
+                if i == j {
+                    continue 'start;
+                }
+            }
+        }
+
+        // Search any item of the second list of 3 elements in the third list of 4
+        for i in &combination[1] {
+            for j in &combination[2] {
+                if i == j {
+                    continue 'start;
+                }
+            }
+        }
+
+        // If you reach this point, there were no duplicates, push it to return
+        res.push(combination.clone());
+    }
+
+    res
+}
 
 // 28 Sorting a list of lists according to length of sublists
 pub fn lsort<T: Copy>(list: Vec<Vec<T>>) -> Vec<Vec<T>> {
