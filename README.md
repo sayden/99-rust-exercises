@@ -2,6 +2,9 @@
 
 https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 
+
+## Lists
+
 1. Find the last element of a list.
 2. Find the last but one element of a list.
 3. Find the K'th element of a list. The first element in the list is number 1.
@@ -28,3 +31,9 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 24. Lotto: Draw N different random numbers from the set 1..M.
 25. Generate a random permutation of the elements of a list.
 26. Generate the combinations of K distinct objects chosen from the N elements of a list
+27. Group the elements of a set into disjoint subsets.
+28. Sorting a list of lists according to length of sublists
+
+## Arithmetic
+31. Determine whether a given integer number is prime.
+32. 
