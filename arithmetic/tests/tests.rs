@@ -56,3 +56,9 @@ fn test_totient_improved() {
     assert_eq!(arithmetic::totient_improved(10), 4);
     assert_eq!(arithmetic::totient_improved(45), 24);
 }
+
+#[test]
+fn test_primes_r() {
+    // 39 A list of prime numbers.
+    assert_eq!(arithmetic::primes_r(10, 20), vec![11, 13, 17, 19]);
+}

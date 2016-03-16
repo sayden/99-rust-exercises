@@ -92,3 +92,15 @@ pub fn totient_improved(n: u32) -> u32 {
 
     res.into_iter().product()
 }
+
+// 39 A list of prime numbers.
+pub fn primes_r(x: u32, y: u32) -> Vec<u32> {
+    let mut res = Vec::new();
+    for i in x..y {
+        if is_prime(i) {
+            res.push(i);
+        }
+    }
+
+    res
+}
