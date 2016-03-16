@@ -41,3 +41,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 34. Calculate Euler's totient function phi(m).
 35. Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
 36. Determine the prime factors of a given positive integer. Construct a list containing the prime factors and their multiplicity.
+37. Calculate Euler's totient function phi(m) (improved)

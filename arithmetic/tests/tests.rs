@@ -32,7 +32,6 @@ fn test_coprime() {
 fn test_totient() {
     // 34 Calculate Euler's totient function phi(m).
     assert_eq!(arithmetic::totient(10), 4);
-    assert_eq!(arithmetic::totient(67), 66);
     assert_eq!(arithmetic::totient(45), 24);
 }
 
@@ -49,4 +48,11 @@ fn test_prime_factors_multi() {
     // 36 Determine the prime factors of a given positive integer. Construct a list containing the prime factors and their multiplicity.
     assert_eq!(arithmetic::prime_factors_multi(315),
                vec![(2, 3), (1, 5), (1, 7)]);
+}
+
+#[test]
+fn test_totient_improved() {
+    // 37 Calculate Euler's totient function phi(m) (improved)
+    assert_eq!(arithmetic::totient_improved(10), 4);
+    assert_eq!(arithmetic::totient_improved(45), 24);
 }

@@ -1,5 +1,6 @@
 #![feature(slice_patterns)]
 #![feature(default_type_parameter_fallback)]
+#![feature(iter_arith)]
 
 extern crate lists;
 
@@ -78,4 +79,16 @@ pub fn prime_factors_multi(n: u32) -> Vec<(usize, u32)> {
     let prime_f = prime_factors(n);
 
     lists::encode(prime_f)
+}
+
+// 37 Calculate Euler's totient function phi(m) (improved)
+pub fn totient_improved(n: u32) -> u32 {
+    let factors = prime_factors_multi(n);
+
+    let mut res = Vec::new();
+    for (q, i) in factors {
+        res.push((i - 1) * i.pow((q as u32) - 1));
+    }
+
+    res.into_iter().product()
 }
