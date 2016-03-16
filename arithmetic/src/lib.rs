@@ -122,3 +122,15 @@ pub fn goldbach(n: u32) -> (u32, u32) {
         Some(e) => return *e,
     }
 }
+
+// 41 Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+pub fn goldbach_list(x: u32, y: u32) -> Vec<String> {
+    (x..y)
+        .into_iter()
+        .filter(|x| x % 2 == 0)
+        .skip_while(|x| x < &4)
+        .map(|x| goldbach(x))
+        .map(|x| format!("{} = {} + {}", x.0 + x.1, x.0, x.1))
+        .collect::<Vec<String>>()
+
+}

@@ -68,3 +68,10 @@ fn test_goldbach() {
     // 40 Goldbach's conjecture.
     assert_eq!(arithmetic::goldbach(28), (5, 23));
 }
+
+#[test]
+fn test_goldbach_list() {
+    // 41 Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+    let res = arithmetic::goldbach_list(9, 20);
+    assert_eq!(res[0], "10 = 3 + 7");
+}

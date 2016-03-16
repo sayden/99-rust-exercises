@@ -44,3 +44,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 37. Calculate Euler's totient function phi(m) (improved)
 39. A list of prime numbers.
 40. Goldbach's conjecture.
+41. Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
