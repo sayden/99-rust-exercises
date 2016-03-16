@@ -38,9 +38,9 @@ fn print_binary<A: std::fmt::Display + Copy, B: std::fmt::Display, F>(f: F, vec:
 
     let mut res = Vec::new();
 
-    for i in vec.clone() {
-        for j in vec.clone() {
-            res.push(format!("{} {} {}\n", i, j, f(i, j)));
+    for i in &vec {
+        for j in &vec {
+            res.push(format!("{} {} {}\n", i, j, f(*i, *j)));
         }
     }
 
