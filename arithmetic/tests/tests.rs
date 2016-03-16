@@ -62,3 +62,9 @@ fn test_primes_r() {
     // 39 A list of prime numbers.
     assert_eq!(arithmetic::primes_r(10, 20), vec![11, 13, 17, 19]);
 }
+
+#[test]
+fn test_goldbach() {
+    // 40 Goldbach's conjecture.
+    assert_eq!(arithmetic::goldbach(28), (5, 23));
+}

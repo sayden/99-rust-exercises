@@ -43,3 +43,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 36. Determine the prime factors of a given positive integer. Construct a list containing the prime factors and their multiplicity.
 37. Calculate Euler's totient function phi(m) (improved)
 39. A list of prime numbers.
+40. Goldbach's conjecture.

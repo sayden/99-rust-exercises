@@ -104,3 +104,21 @@ pub fn primes_r(x: u32, y: u32) -> Vec<u32> {
 
     res
 }
+
+// 40 Goldbach's conjecture.
+pub fn goldbach(n: u32) -> (u32, u32) {
+    let primes_r = primes_r(2, n - 2);
+    let mut tmp: Vec<(u32, u32)> = Vec::new();
+
+    for x in primes_r {
+        let y = n - x;
+        if is_prime(y) {
+            tmp.push((x, y));
+        }
+    }
+
+    match tmp.first() {
+        None => (0, 0),
+        Some(e) => return *e,
+    }
+}
