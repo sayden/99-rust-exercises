@@ -4,7 +4,6 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 
 
 ## Lists
-
 1. Find the last element of a list.
 2. Find the last but one element of a list.
 3. Find the K'th element of a list. The first element in the list is number 1.
@@ -45,3 +44,8 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 39. A list of prime numbers.
 40. Goldbach's conjecture.
 41. Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+
+
+## Logic
+46. and 47 Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 and equ/2 (for logical equivalence) which succeed or fail according to the result of their respective operations; e.g. and(A,B) will succeed, if and only if both A and B succeed.
+49. Gray codes.
