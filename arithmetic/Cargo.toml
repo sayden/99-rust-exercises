@@ -2,3 +2,6 @@
 name = "arithmetic"
 version = "0.0.1"
 authors = ["Mario Castro <mariocaster@gmail.com>"]
+
+[dependencies]
+lists = { path = "../lists", version = "0.0.1" }

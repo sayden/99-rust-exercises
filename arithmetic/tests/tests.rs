@@ -43,3 +43,10 @@ fn test_prime_factors() {
     assert_eq!(arithmetic::prime_factors(20), vec![2, 2, 5]);
     assert_eq!(arithmetic::prime_factors(21), vec![3, 7]);
 }
+
+#[test]
+fn test_prime_factors_multi() {
+    // 36 Determine the prime factors of a given positive integer. Construct a list containing the prime factors and their multiplicity.
+    assert_eq!(arithmetic::prime_factors_multi(315),
+               vec![(2, 3), (1, 5), (1, 7)]);
+}

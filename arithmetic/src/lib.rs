@@ -1,6 +1,8 @@
 #![feature(slice_patterns)]
 #![feature(default_type_parameter_fallback)]
 
+extern crate lists;
+
 // 31 Determine whether a given integer number is prime.
 pub fn is_prime(n: u32) -> bool {
     if n > 1 {
@@ -69,4 +71,11 @@ pub fn prime_factors(n: u32) -> Vec<u32> {
     }
 
     res
+}
+
+// 36 Determine the prime factors of a given positive integer. Construct a list containing the prime factors and their multiplicity.
+pub fn prime_factors_multi(n: u32) -> Vec<(usize, u32)> {
+    let prime_f = prime_factors(n);
+
+    lists::encode(prime_f)
 }
