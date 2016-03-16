@@ -10,6 +10,7 @@ fn test_is_prime() {
     assert_eq!(arithmetic::is_prime(17), true);
     assert_eq!(arithmetic::is_prime(97), true);
     assert_eq!(arithmetic::is_prime(60), false);
+    assert_eq!(arithmetic::is_prime(2), true);
 }
 
 #[test]
@@ -33,4 +34,12 @@ fn test_totient() {
     assert_eq!(arithmetic::totient(10), 4);
     assert_eq!(arithmetic::totient(67), 66);
     assert_eq!(arithmetic::totient(45), 24);
+}
+
+#[test]
+fn test_prime_factors() {
+    // 35 Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
+    assert_eq!(arithmetic::prime_factors(315), vec![3, 3, 5, 7]);
+    assert_eq!(arithmetic::prime_factors(20), vec![2, 2, 5]);
+    assert_eq!(arithmetic::prime_factors(21), vec![3, 7]);
 }

@@ -47,3 +47,26 @@ pub fn totient(n: i32) -> i32 {
         a => (1..a).into_iter().filter(|b| coprime(*b, n)).collect::<Vec<i32>>().len() as i32,
     }
 }
+
+// 35 Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
+pub fn prime_factors(n: u32) -> Vec<u32> {
+    let mut primes: Vec<u32> = Vec::new();
+    for i in 2..n {
+        if is_prime(i) {
+            primes.push(i);
+        }
+    }
+
+    let mut _n = n;
+
+    let mut res: Vec<u32> = Vec::new();
+
+    for i in primes {
+        while _n % i == 0 {
+            res.push(i);
+            _n = _n / i;
+        }
+    }
+
+    res
+}
