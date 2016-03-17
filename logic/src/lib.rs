@@ -168,50 +168,51 @@ impl HNode {
         return sorted[0].clone();
     }
 
-    pub fn find_char(&self, c: char) -> String {
+    pub fn find_char(&self, c: char, side: String) -> String {
         match &self.data {
             &HTree::Leaf(ref _c) => {
-                println!("Is leaf: {}=={}", c, _c);
-                if *_c == c {
-                    return "0".to_string();
-                } else {
-                    return "".to_string();
+                if c == *_c {
+                    return side;
                 }
+
+                return "".to_string();
             }
             &HTree::Branch(ref b) => {
-                let mut res: String = String::new();
-                let left = b.left.find_char(c);
-                let right = b.right.find_char(c);
-                println!("Is Branch. Left len = {}, right len = {}",
-                         left.len(),
-                         right.len());
-                if left.len() > 1 {
-                    res.push('0');
-                    res.push_str(left.as_str());
-                    return res;
-                } else if right.len() > 1 {
-                    res.push('1');
-                    res.push_str(right.as_str());
-                    return res;
-                } else {
-                    if left.len() > 0 {
-                        return left;
-                    } else {
-                        return right;
-                    }
+                let mut _side = side.clone();
+                _side.push('0');
+                let left = b.left.find_char(c, _side);
+                if left.len() > 0 {
+                    return left;
                 }
+
+                let mut _side = side.clone();
+                _side.push('1');
+                let right = b.right.find_char(c, _side);
+                if right.len() > 0 {
+                    return right;
+                }
+
+                return "".to_string();
             }
         }
     }
 }
 
 
-pub fn huffman(vec: Vec<(char, usize)>) {
+pub fn huffman(vec: Vec<(char, usize)>) -> Vec<(char, String)> {
     let mut nodes: Vec<HNode> = Vec::new();
 
-    for i in vec {
+    for i in vec.clone() {
         nodes.push(HNode::new_leaf(i.1, i.0));
     }
 
     let tree = HNode::get_tree(nodes);
+
+    let mut res = Vec::new();
+    for i in vec {
+        let s: String = tree.find_char(i.0, "".to_string());
+        res.push((i.0, s));
+    }
+
+    res
 }

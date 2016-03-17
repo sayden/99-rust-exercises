@@ -33,31 +33,18 @@ fn test_gray_codes() {
 
 #[test]
 fn test_huffman() {
-    huffman(vec![('a', 45), ('b', 13), ('c', 12), ('d', 16), ('e', 9), ('f', 5)]);
+    let res = huffman(vec![('a', 45), ('b', 13), ('c', 12), ('d', 16), ('e', 9), ('f', 5)]);
 
-    let a = logic::HNode::new_leaf(3, 'a');	//0
-    let b = logic::HNode::new_leaf(5, 'b');	//1
-
-    let ab = logic::HNode::new_branch(a, b);
-
-    // let res = ab.find_char('a');	//0
-    // assert_eq!(res, "0");
-
-    // let res = ab.find_char('b');	//1
-    // assert_eq!(res, "1");
-
-    let c = logic::HNode::new_leaf(10, 'c');
-    let abc = logic::HNode::new_branch(ab, c);
-
-    // let res = abc.find_char('a');
-    // assert_eq!(res, "0");
-    // println!("a:{}", res);
-
-    // let res = abc.find_char('b');
-    // println!("b:{}", res);
-    // assert_eq!(res, "1");
-
-    let res = abc.find_char('c');
-    assert_eq!(res, "101");
-    println!("c:{}", res);
+    assert_eq!(res[0].0, 'a');
+    assert_eq!(res[0].1, "0");
+    assert_eq!(res[1].0, 'b');
+    assert_eq!(res[1].1, "101");
+    assert_eq!(res[2].0, 'c');
+    assert_eq!(res[2].1, "100");
+    assert_eq!(res[3].0, 'd');
+    assert_eq!(res[3].1, "111");
+    assert_eq!(res[4].0, 'e');
+    assert_eq!(res[4].1, "1101");
+    assert_eq!(res[5].0, 'f');
+    assert_eq!(res[5].1, "1100");
 }
