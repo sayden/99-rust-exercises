@@ -71,3 +71,147 @@ pub fn gray(n: u32) -> Vec<String> {
         }
     }
 }
+
+#[derive(Clone)]
+pub struct HNode {
+    val: usize,
+    data: HTree,
+}
+
+#[derive(Clone)]
+pub enum HTree {
+    Leaf(char),
+    Branch(Branch),
+}
+
+#[derive(Clone)]
+pub struct Branch {
+    left: Box<HNode>,
+    right: Box<HNode>,
+}
+
+impl HNode {
+    pub fn new_leaf(val: usize, c: char) -> Self {
+        HNode {
+            val: val,
+            data: HTree::Leaf(c),
+        }
+    }
+
+    pub fn new_branch(a: HNode, b: HNode) -> Self {
+        HNode {
+            val: a.val + b.val,
+            data: HTree::Branch(Branch {
+                left: Box::new(a),
+                right: Box::new(b),
+            }),
+        }
+    }
+
+    fn get_tree(vec: Vec<HNode>) -> Self {
+        let debug = false;
+
+        let mut sorted: Vec<HNode> = vec.clone();
+
+        sorted.sort_by(|a, b| a.val.cmp(&b.val));
+
+        if debug {
+            println!("Init list is:");
+
+            for i in &sorted {
+                println!("{},{}",
+                         i.val,
+                         match i.data {
+                             HTree::Leaf(c) => c,
+                             _ => '*',
+                         });
+            }
+
+            println!("");
+        }
+
+        // Ready
+        let mut done = false;
+        while !done {
+
+            let candidates = sorted.clone().into_iter().take(2).collect::<Vec<HNode>>();
+            sorted = sorted.clone().into_iter().skip(2).collect::<Vec<HNode>>();
+
+            // Create new, insert and sort
+            let new = HNode::new_branch(candidates[0].clone(), candidates[1].clone());
+            sorted.push(new);
+            sorted.sort_by(|a, b| a.val.cmp(&b.val));
+
+
+            if debug {
+                println!("");
+
+                for i in &sorted {
+                    println!("{},{}",
+                             i.val,
+                             match i.data {
+                                 HTree::Leaf(c) => c,
+                                 _ => '*',
+                             });
+                }
+            }
+
+            if !(sorted.len() > 1) {
+                done = true;
+            }
+        }
+
+        if debug {
+            println!("Finished!");
+        }
+
+        return sorted[0].clone();
+    }
+
+    pub fn find_char(&self, c: char) -> String {
+        match &self.data {
+            &HTree::Leaf(ref _c) => {
+                println!("Is leaf: {}=={}", c, _c);
+                if *_c == c {
+                    return "0".to_string();
+                } else {
+                    return "".to_string();
+                }
+            }
+            &HTree::Branch(ref b) => {
+                let mut res: String = String::new();
+                let left = b.left.find_char(c);
+                let right = b.right.find_char(c);
+                println!("Is Branch. Left len = {}, right len = {}",
+                         left.len(),
+                         right.len());
+                if left.len() > 1 {
+                    res.push('0');
+                    res.push_str(left.as_str());
+                    return res;
+                } else if right.len() > 1 {
+                    res.push('1');
+                    res.push_str(right.as_str());
+                    return res;
+                } else {
+                    if left.len() > 0 {
+                        return left;
+                    } else {
+                        return right;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+pub fn huffman(vec: Vec<(char, usize)>) {
+    let mut nodes: Vec<HNode> = Vec::new();
+
+    for i in vec {
+        nodes.push(HNode::new_leaf(i.1, i.0));
+    }
+
+    let tree = HNode::get_tree(nodes);
+}

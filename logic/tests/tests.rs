@@ -1,6 +1,6 @@
 extern crate logic;
 
-use logic::{not, and, or, table, gray};
+use logic::{not, and, or, table, gray, huffman};
 
 #[test]
 fn test_table() {
@@ -29,4 +29,35 @@ fn test_gray_codes() {
     assert_eq!(gray(4),
                vec!["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000",
                     "1001", "1010", "1011", "1100", "1101", "1110", "1111"]);
+}
+
+#[test]
+fn test_huffman() {
+    huffman(vec![('a', 45), ('b', 13), ('c', 12), ('d', 16), ('e', 9), ('f', 5)]);
+
+    let a = logic::HNode::new_leaf(3, 'a');	//0
+    let b = logic::HNode::new_leaf(5, 'b');	//1
+
+    let ab = logic::HNode::new_branch(a, b);
+
+    // let res = ab.find_char('a');	//0
+    // assert_eq!(res, "0");
+
+    // let res = ab.find_char('b');	//1
+    // assert_eq!(res, "1");
+
+    let c = logic::HNode::new_leaf(10, 'c');
+    let abc = logic::HNode::new_branch(ab, c);
+
+    // let res = abc.find_char('a');
+    // assert_eq!(res, "0");
+    // println!("a:{}", res);
+
+    // let res = abc.find_char('b');
+    // println!("b:{}", res);
+    // assert_eq!(res, "1");
+
+    let res = abc.find_char('c');
+    assert_eq!(res, "101");
+    println!("c:{}", res);
 }
