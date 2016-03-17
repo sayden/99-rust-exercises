@@ -49,3 +49,4 @@ https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems
 ## Logic
 46. and 47 Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 and equ/2 (for logical equivalence) which succeed or fail according to the result of their respective operations; e.g. and(A,B) will succeed, if and only if both A and B succeed.
 49. Gray codes.
+50. Huffman codes.
