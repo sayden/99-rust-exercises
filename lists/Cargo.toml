@@ -5,3 +5,6 @@ authors = ["Mario Castro <mariocaster@gmail.com>"]
 
 [dependencies]
 rand = "0.3.12"
+
+[lib]
+name = "lists"

@@ -1,25 +1,40 @@
-#![feature(slice_patterns)]
-#![feature(default_type_parameter_fallback)]
-
+#![feature(advanced_slice_patterns, slice_patterns)]
 extern crate rand;
 
 // 1 Find the last element of a list.
 pub fn my_last<T: Clone>(vec: Vec<T>) -> T {
-    let mut reversed = vec;
-    reversed.reverse();
-    reversed[0].clone()
+    vec[vec.len() - 1].clone()
 }
+
+pub fn my_last_recursive<T>(vec: &[T]) -> Option<&T> {
+    match vec {
+        &[] => return Option::None,
+        &[ref x] => return Some(x),
+        &[_, ref xs..] => my_last_recursive(xs),
+    }
+}
+
 
 // 2 Find the last but one element of a list.
 pub fn my_but_last<T: Clone>(vec: Vec<T>) -> T {
-    let mut reversed = vec;
-    reversed.reverse();
-    reversed[1].clone()
+    vec[vec.len() - 2].clone()
+}
+
+pub fn my_but_last_recursive<T>(sli: &[T]) -> Option<&T> {
+    match sli {
+        &[] => return Option::None,
+        &[ref x, _] => return Some(x),
+        &[_, ref xs..] => my_but_last_recursive(xs),
+    }
 }
 
 // 3 Find the K'th element of a list. The first element in the list is number 1
-pub fn element_at<T: Clone>(vec: Vec<T>, pos: usize) -> T {
-    vec[pos - 1].clone()
+pub fn element_at<T: Clone>(vec: Vec<T>, pos: usize) -> Option<T> {
+    if vec.len() < pos {
+        return Option::None
+    }
+
+    Some(vec[pos - 1].clone())
 }
 
 // 4 Find the number of elements of a list.
@@ -32,28 +47,35 @@ pub fn my_length<T>(vec: Vec<T>) -> usize {
     size
 }
 
-// 5 Reverse a list
-pub fn my_reverse<T: Clone>(vec: Vec<T>) -> Vec<T> {
-    let mut r = Vec::with_capacity(vec.len());
-    for e in &vec {
-        r.insert(0, e.clone())
-    }
+pub fn my_length_fold<T: IntoIterator>(sli: T) -> usize {
+    sli.into_iter().fold(0, | acc, _ | acc + 1) as usize
+}
 
+// 5 Reverse a list
+pub fn my_reverse<T: Clone>(vec: &Vec<T>) -> Vec<&T> {
+    let mut r: Vec<&T> = Vec::with_capacity(vec.len());
+
+    for index in (0..vec.len()).rev() {
+        r.push(&vec[index]);
+    }
+    
     r
+}
+
+pub fn middle_index(n: usize) -> usize {
+    match n%2 {
+        0 => return (n-2)/2,
+        _ => return (n-1)/2,
+    }
 }
 
 // 6 Find out whether a list is a palindrome. A palindrome can be read forward or backward; e.g. (x a m a x).
 pub fn is_palindrome<T: PartialEq>(vec: Vec<T>) -> bool {
-    let middle;
-    if vec.len() % 2 == 0 {
-        middle = (vec.len() / 2) - 1;
-
-    } else {
-        middle = (vec.len() - 1 / 2) - 1;
-    }
+    let middle_i = middle_index(vec.len());
+    println!("{}", middle_i);
 
     let mut tail = vec;
-    let head = tail.split_off(middle);
+    let head = tail.split_off(middle_i);
 
     let mut i = 0;
     for e in head {
@@ -84,9 +106,9 @@ pub fn my_flatten<T: PartialEq>(b: Vec<NestedList<T>>, acc: &mut Vec<T>) {
 // 8 Eliminate consecutive duplicates of list elements. dedup()
 pub fn compress<T: PartialEq + Copy>(vec: Vec<T>, acc: &mut Vec<T>) {
     match vec.as_slice() {
-        [x] => acc.push(x),
+        &[x] => acc.push(x),
 
-        [x, xs..] => {
+        &[x, ref xs..] => {
             acc.push(x);
             let rest = xs.iter()
                          .skip_while(|y| x == **y)
@@ -108,7 +130,7 @@ pub fn pack<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<Vec<T>> {
     let mut res: Vec<Vec<T>> = vec![];
 
     match vec.as_slice() {
-        [x, xs..] => {
+        &[x, ref xs..] => {
             let first = xs.iter()
                           .take_while(|y| **y == x)
                           .collect::<Vec<&T>>();
@@ -191,8 +213,8 @@ pub fn encode_direct<T: Copy + PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
     let mut res: Vec<(usize, T)> = vec![];
 
     match vec.as_slice() {
-        [x] => res.push((1usize, x)),
-        [x, xs..] => {
+        &[x] => res.push((1usize, x)),
+        &[x, ref xs..] => {
             let first = xs.iter()
                           .take_while(|y| **y == x)
                           .collect::<Vec<&T>>();
@@ -335,8 +357,8 @@ pub fn combinations<T: Copy>(n: usize, vec: Vec<T>) -> Vec<Vec<T>> {
         return vec![];
     } else {
         match vec.as_slice() {
-            [] => vec![],
-            [x, xs..] => {
+            &[] => vec![],
+            &[x, ref xs..] => {
                 // Convert xs slice to vector
                 let mut _xs: Vec<T> = vec![];
                 for i in xs {
@@ -359,66 +381,7 @@ pub fn combinations<T: Copy>(n: usize, vec: Vec<T>) -> Vec<Vec<T>> {
 
 
 // 27 Group the elements of a set into disjoint subsets.
-pub fn combination<T: Copy + PartialEq>(agr: Vec<usize>, vec: Vec<T>) -> Vec<Vec<Vec<T>>> {
-    // Generate combinations of 2
-    let comb_2 = combinations(2, vec.clone());
-
-    // Generate combinations of 3
-    let comb_3 = combinations(3, vec.clone());
-
-    // Generate combinations of 4
-    let comb_4 = combinations(4, vec.clone());
-
-    // Now generate an array with all possible combinations of the three
-    let temp = vec![comb_2.clone(), comb_3.clone(), comb_4.clone()];
-    let mut combined: Vec<Vec<Vec<T>>> = Vec::new();
-    for i in 0..comb_2.len() {
-        for j in 0..comb_3.len() {
-            for k in 0..comb_4.len() {
-                combined.push(vec![comb_2[i].clone(), comb_3[j].clone(), comb_4[k].clone()]);
-            }
-        }
-    }
-
-
-    // Finally, iterate over every possible combination and delete those that have
-    // items in common (items are repeated)
-
-    let mut res = Vec::new();
-    'start: for combination in combined {
-        // Search any item of the first list of 2 elements in the second list of 3
-        for i in &combination[0] {
-            for j in &combination[1] {
-                if i == j {
-                    continue 'start;
-                }
-            }
-        }
-
-        // Search any item of the first list of 2 elements in the third list of 4
-        for i in &combination[0] {
-            for j in &combination[2] {
-                if i == j {
-                    continue 'start;
-                }
-            }
-        }
-
-        // Search any item of the second list of 3 elements in the third list of 4
-        for i in &combination[1] {
-            for j in &combination[2] {
-                if i == j {
-                    continue 'start;
-                }
-            }
-        }
-
-        // If you reach this point, there were no duplicates, push it to return
-        res.push(combination.clone());
-    }
-
-    res
-}
+//TODO
 
 // 28 Sorting a list of lists according to length of sublists
 pub fn lsort<T: Copy>(list: Vec<Vec<T>>) -> Vec<Vec<T>> {

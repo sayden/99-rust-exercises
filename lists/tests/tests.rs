@@ -5,33 +5,62 @@ extern crate lists;
 #[test]
 fn test_last_element() {
     // 1 Find the last element of a list.
-    assert_eq!(lists::my_last(vec![18, 5, 3, 54]), 54);
+    let vec = vec![18,5,3,54];
+
+    assert_eq!(lists::my_last_recursive(vec.as_slice()), Some(&54));
+    assert_eq!(lists::my_last(vec), 54);
+
+    let empty: Vec<i32> = Vec::new();
+    assert_eq!(lists::my_last_recursive(&empty.as_slice()), None);
 }
 
 #[test]
 fn test_last_but_one() {
     // 2 Find the last but one element of a list.
-    assert_eq!(lists::my_but_last(vec![18, 5, 3, 54]), 3);
+    let vec = vec![18, 5, 3, 54];
+
+    assert_eq!(lists::my_but_last_recursive(vec.as_slice()), Some(&3));
+    assert_eq!(lists::my_but_last(vec), 3);
+
+    let empty: Vec<i32> = Vec::new();
+
+    assert_eq!(lists::my_but_last_recursive(empty.as_slice()), None);
 }
 
 
 #[test]
 fn test_k_element() {
     // 3 Find the K'th element of a list. The first element in the list is number 1
-    assert_eq!(lists::element_at(vec![18, 5, 3, 54], 2), 5);
+    let vec: Vec<u32> = vec![18, 5, 3, 54];
+    assert_eq!(lists::element_at(vec.clone(), 2), Some(5));
+
+    assert_eq!(lists::element_at(vec, 5), None);
 }
 
 
 #[test]
 fn test_number_of_elements() {
     // 4 Find the number of elements of a list.
-    assert_eq!(lists::my_length(vec![0, 1, 2, 3, 4, 5]), 6);
+    let vec: Vec<u32> = vec![0, 1, 2, 3, 4, 5];
+    
+    assert_eq!(lists::my_length(vec.clone()), 6);
+
+    assert_eq!(lists::my_length_fold(vec.clone()), 6);
+    assert_eq!(lists::my_length_fold(vec.as_slice()), 6);
 }
 
 #[test]
 fn test_reverse_list() {
     // 5 Reverse a list
-    assert_eq!(lists::my_reverse(vec![0, 1, 2, 3]), [3, 2, 1, 0]);
+    assert_eq!(lists::my_reverse(&vec![0, 1, 2, 3]), [&3, &2, &1, &0]);
+}
+
+#[test]
+fn test_middle_index(){
+    assert_eq!(lists::middle_index(5), 2);
+    assert_eq!(lists::middle_index(4), 1);
+    assert_eq!(lists::middle_index(3), 1);
+    assert_eq!(lists::middle_index(7), 3);
 }
 
 #[test]
@@ -40,6 +69,7 @@ fn test_palindrome() {
     assert_eq!(lists::is_palindrome(vec![1, 2, 3]), false);
     assert_eq!(lists::is_palindrome(vec![3, 2, 3]), true);
     assert_eq!(lists::is_palindrome(vec![3, 2, 2, 4, 2, 2, 3]), true);
+    assert_eq!(lists::is_palindrome(vec![3, 2, 2, 4, 2, 2, 1]), false);
 }
 
 #[test]
@@ -275,12 +305,13 @@ fn test_combinations() {
 
 #[test]
 fn test_combination() {
-    let people = vec!["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"];
-    let res = lists::combination(vec![2, 3, 4], people);
-    assert_eq!(res[0],
-               vec![vec!["aldo", "beat"],
-                    vec!["carla", "david", "evi"],
-                    vec!["flip", "gary", "hugo", "ida"]]);
+    // 27 Group the elements of a set into disjoint subsets.
+//    let people = vec!["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"];
+//    let res = lists::combination(vec![2, 3, 4], people);
+//    assert_eq!(res[0],
+//               vec![vec!["aldo", "beat"],
+//                    vec!["carla", "david", "evi"],
+//                    vec!["flip", "gary", "hugo", "ida"]]);
 }
 
 #[test]

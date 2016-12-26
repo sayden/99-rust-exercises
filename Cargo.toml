@@ -2,3 +2,8 @@
 name = "99-rust-exercises"
 version = "0.1.0"
 authors = ["Mario Castro <mariocaster@gmail.com>"]
+
+[lib]
+name = "lists"
+path = "lists/src/lib.rs"
+test = true

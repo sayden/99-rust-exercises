@@ -1,4 +1,3 @@
-#![feature(slice_patterns)]
 #![feature(default_type_parameter_fallback)]
 #![feature(iter_arith)]
 
